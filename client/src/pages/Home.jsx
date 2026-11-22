@@ -11,10 +11,10 @@ export default function Home({ title }) {
   }, [logout]);
 
   return (
-    <div className="card" style={{ maxWidth: 600, margin: '40px auto' }}>
+    <div className="card">
       <h1>{title}</h1>
       {me && <p>Logged in as <strong>{me.fullName}</strong> ({me.role})</p>}
-      <button className="btn-primary" onClick={logout}>Switch user</button>
+      <p className="hint">This screen comes in a later part.</p>
     </div>
   );
 }

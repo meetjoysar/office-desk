@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import { useAuth } from '../useAuth';
-
-const initials = (name) =>
-  name.split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+import { initials } from '../utils';
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Clear', '0', 'Back'];
 

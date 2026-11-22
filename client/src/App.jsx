@@ -1,15 +1,19 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './AuthProvider';
 import { useAuth } from './useAuth';
+import Layout from './components/Layout';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Clients from './pages/Clients';
 
-// Sends you to /login if not logged in; blocks staff from boss pages
-function RequireAuth({ children, bossOnly = false }) {
+function RequireAuth({ children }) {
   const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
-  if (bossOnly && user.role !== 'BOSS') return <p className="card">Only bosses can open this page.</p>;
-  return children;
+  return user ? children : <Navigate to="/login" replace />;
+}
+
+function BossOnly({ children }) {
+  const { user } = useAuth();
+  return user.role === 'BOSS' ? children : <div className="card">Only bosses can open this page.</div>;
 }
 
 export default function App() {
@@ -18,8 +22,14 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<RequireAuth><Home title="My Work" /></RequireAuth>} />
-          <Route path="/dashboard" element={<RequireAuth bossOnly><Home title="Office today" /></RequireAuth>} />
+
+          {/* Every page inside here gets the top bar and needs login */}
+          <Route element={<RequireAuth><Layout /></RequireAuth>}>
+            <Route path="/" element={<Home title="My Work" />} />
+            <Route path="/dashboard" element={<BossOnly><Home title="Office today" /></BossOnly>} />
+            <Route path="/clients" element={<BossOnly><Clients /></BossOnly>} />
+          </Route>
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
