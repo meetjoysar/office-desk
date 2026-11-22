@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import { randomInt } from 'node:crypto';
 import User from '../models/User.js';
 import { protect, bossOnly } from '../middleware/auth.js';
+import mongoose from 'mongoose';
+import Task from '../models/Task.js';
+import { HttpError } from '../utils.js';
 
 const router = Router();
 router.use(protect, bossOnly); // whole file is boss-only
@@ -81,6 +84,19 @@ router.patch('/:id/active', async (req, res) => {
   const isActive = Boolean(req.body?.isActive);
   if (!isActive && (await isLastBoss(user))) {
     return res.status(400).json({ message: 'At least one boss is needed' });
+  }
+  if (!isActive) {
+    const openFilter = { assignedTo: user._id, status: { $ne: 'DONE' }, isCancelled: false };
+    const openCount = await Task.countDocuments(openFilter);
+    if (openCount > 0) {
+      const to = req.body?.moveTasksTo;
+      const ok =
+        mongoose.isValidObjectId(to) &&
+        !user._id.equals(to) &&
+        (await User.exists({ _id: to, isActive: true }));
+      if (!ok) throw new HttpError(400, `Choose who takes their ${openCount} open tasks`);
+      await Task.updateMany(openFilter, { assignedTo: to });
+    }
   }
   user.isActive = isActive;
   await user.save();

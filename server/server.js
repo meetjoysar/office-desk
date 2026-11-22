@@ -8,6 +8,8 @@ import typeRoutes from './routes/types.js';
 import officeRoutes from './routes/offices.js';
 import inwardRoutes from './routes/inwards.js';
 import outwardRoutes from './routes/outwards.js';
+import taskRoutes from './routes/tasks.js';
+import dashboardRoutes from './routes/dashboard.js';
 
 const app = express();
 app.use(cors());
@@ -21,6 +23,8 @@ app.use('/api/types', typeRoutes);
 app.use('/api/offices', officeRoutes);
 app.use('/api/inwards', inwardRoutes);
 app.use('/api/outwards', outwardRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Catches any error thrown in a route
 app.use((err, req, res, next) => {

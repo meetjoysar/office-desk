@@ -7,7 +7,7 @@ export default function TopBar() {
   const common = [['/inward', 'Inward'], ['/outward', 'Outward'], ['/documents', 'Documents']];
   const links =
     user.role === 'BOSS'
-      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ...common, ['/clients', 'Clients'], ['/settings', 'Settings']]
+      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ['/tasks', 'All tasks'], ...common, ['/clients', 'Clients'], ['/settings', 'Settings']]
       : [['/', 'My Work'], ...common];
 
   return (
