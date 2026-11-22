@@ -6,7 +6,7 @@ export default function TopBar() {
   const { user, logout } = useAuth();
   const links =
     user.role === 'BOSS'
-      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ['/clients', 'Clients']]
+      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ['/clients', 'Clients'], ['/settings', 'Settings']]
       : [['/', 'My Work']];
 
   return (

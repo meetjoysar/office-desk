@@ -13,4 +13,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true } // adds createdAt and updatedAt automatically
 );
 
+userSchema.set('toJSON', { transform: (doc, ret) => { delete ret.pinHash; return ret; } });
+
 export default mongoose.model('User', userSchema);

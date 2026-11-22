@@ -3,10 +3,14 @@ import bcrypt from 'bcryptjs';
 import { connectDB } from './config/db.js';
 import User from './models/User.js';
 import Client from './models/Client.js';
+import Type from './models/Type.js';
+import Office from './models/Office.js';
 
 await connectDB();
 await User.deleteMany({});
 await Client.deleteMany({});
+await Type.deleteMany({});
+await Office.deleteMany({});
 
 const pinHash = await bcrypt.hash('2468', 10);
 
@@ -29,5 +33,21 @@ await Client.insertMany([
   { name: 'Rao Enterprises',   clientType: 'COMPANY',    mobile: '9890600906', usualStaff: suresh._id, createdBy: by },
 ]);
 
-console.log('Seeded 5 users (PIN 2468) and 7 clients');
+const DOCS = ['PAN Card', 'Aadhaar Card', 'Bank Statement', 'Form 16', 'Previous ITR', 'GST Certificate',
+  'Sale / Purchase Bills', 'Sale Deed', 'Property Tax Bill', 'Partnership Deed', 'Cancelled Cheque'];
+const WORK = ['GST Return', 'Income Tax Return', 'TDS Return', 'Audit', 'Balance Sheet',
+  'Accounting Entries', 'ROC Filing', 'PAN / Aadhaar Work'];
+
+const toTypes = (kind, names) => [
+  ...names.map((name, i) => ({ kind, name, order: i })),
+  { kind, name: 'Other…', order: names.length, isOther: true },
+];
+await Type.insertMany([...toTypes('DOC', DOCS), ...toTypes('TASK', WORK)]);
+
+await Office.insertMany([
+  { name: 'Office 1', cupboards: 6, rowsPerCupboard: 4 },
+  { name: 'Office 2', cupboards: 5, rowsPerCupboard: 5 },
+]);
+
+console.log('Seeded users (PIN 2468), clients, types and offices');
 await mongoose.disconnect();

@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Clients from './pages/Clients';
+import Settings from './pages/Settings';
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/" element={<Home title="My Work" />} />
             <Route path="/dashboard" element={<BossOnly><Home title="Office today" /></BossOnly>} />
             <Route path="/clients" element={<BossOnly><Clients /></BossOnly>} />
+            <Route path="/settings" element={<BossOnly><Settings /></BossOnly>} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
