@@ -5,12 +5,18 @@ import User from './models/User.js';
 import Client from './models/Client.js';
 import Type from './models/Type.js';
 import Office from './models/Office.js';
+import Counter from './models/Counter.js';
+import Inward from './models/Inward.js';
+import Outward from './models/Outward.js';
 
 await connectDB();
 await User.deleteMany({});
 await Client.deleteMany({});
 await Type.deleteMany({});
 await Office.deleteMany({});
+await Counter.deleteMany({});
+await Inward.deleteMany({});
+await Outward.deleteMany({});
 
 const pinHash = await bcrypt.hash('2468', 10);
 

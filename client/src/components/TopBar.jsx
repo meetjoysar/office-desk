@@ -4,10 +4,11 @@ import { initials } from '../utils';
 
 export default function TopBar() {
   const { user, logout } = useAuth();
+  const common = [['/inward', 'Inward'], ['/outward', 'Outward'], ['/documents', 'Documents']];
   const links =
     user.role === 'BOSS'
-      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ['/clients', 'Clients'], ['/settings', 'Settings']]
-      : [['/', 'My Work']];
+      ? [['/dashboard', 'Dashboard'], ['/', 'My Work'], ...common, ['/clients', 'Clients'], ['/settings', 'Settings']]
+      : [['/', 'My Work'], ...common];
 
   return (
     <header className="topbar">

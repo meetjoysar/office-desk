@@ -106,3 +106,61 @@ label, .label { display: block; font-weight: 700; margin: 0 0 6px; }
 .cupboards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
 .cupboard { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 2px solid var(--line); border-radius: 12px; background: var(--soft); }
 .shelf { height: 10px; border-radius: 4px; background: var(--line); }
+
+/* Entry forms */
+.form-page { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.form-page h2 { font-size: 22px; }
+.picked {
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; font-size: 20px;
+  border: 3px solid var(--blue); background: var(--blue-bg); border-radius: 12px;
+}
+.type-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.toggle {
+  display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 12px 14px; text-align: left;
+  background: var(--card); border: 2px solid var(--line); border-radius: 12px;
+}
+.toggle.selected { border: 3px solid var(--blue); background: var(--blue-bg); }
+.box { width: 22px; height: 22px; border: 2px solid var(--line); border-radius: 6px; flex-shrink: 0; }
+.toggle.selected .box { background: var(--blue); border-color: var(--blue); }
+.copy-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.copy-row .input.other { margin: 0; flex: 1; background: var(--note-bg); border-color: var(--amber); }
+.segmented { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.segmented button { height: 50px; padding: 0 16px; border: 0; background: var(--card); }
+.segmented button + button { border-left: 1px solid var(--line); }
+.segmented button.selected { background: var(--navy); color: #fff; font-weight: 700; }
+.cards2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.big-choice {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 18px 20px; font-size: 20px;
+  text-align: left; background: var(--card); border: 2px solid var(--line); border-radius: 14px;
+}
+.big-choice.selected { border: 3px solid var(--blue); background: var(--blue-bg); }
+.reveal { background: var(--note-bg); border-radius: 12px; padding: 16px; margin-top: 16px; }
+.same-place {
+  width: 100%; padding: 14px; margin-bottom: 16px; text-align: left; font-weight: 700; color: var(--blue);
+  border: 2px dashed var(--blue); border-radius: 12px; background: var(--blue-bg);
+}
+.num-tiles { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; margin-bottom: 16px; }
+.num { height: 60px; border: 2px solid var(--line); border-radius: 12px; background: var(--card); font-size: 22px; font-weight: 700; }
+.num.selected { border: 3px solid var(--blue); background: var(--blue-bg); }
+.note-tag { display: inline-block; background: var(--note-bg); color: var(--note-text); border-radius: 8px; padding: 6px 12px; font-weight: 700; }
+.info-line { background: var(--blue-bg); color: #163A77; padding: 14px 16px; border-radius: 12px; }
+.btn-row { display: flex; gap: 12px; }
+.btn-row > * { flex: 1; margin: 0; }
+
+/* Outward */
+.group { margin-bottom: 20px; }
+.group-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 10px; }
+.doc-row { width: 100%; margin-bottom: 8px; }
+.tag { padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 15px; }
+.tag.dark { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* Success screen */
+.success-screen { text-align: center; max-width: 640px; margin: 40px auto; }
+.big-number { font-size: 56px; font-weight: 700; color: var(--blue); margin: 8px 0 16px; }
+
+/* Table */
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; color: var(--ink-3); font-size: 16px; padding: 10px 8px; border-bottom: 2px solid var(--line); }
+.table td { padding: 12px 8px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+.pill { padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 15px; }
+.pill.green { background: var(--green-bg); color: var(--green); }

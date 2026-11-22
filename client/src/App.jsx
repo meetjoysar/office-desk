@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Clients from './pages/Clients';
 import Settings from './pages/Settings';
+import Inward from './pages/Inward';
+import Outward from './pages/Outward';
+import Documents from './pages/Documents';
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -30,6 +33,9 @@ export default function App() {
             <Route path="/dashboard" element={<BossOnly><Home title="Office today" /></BossOnly>} />
             <Route path="/clients" element={<BossOnly><Clients /></BossOnly>} />
             <Route path="/settings" element={<BossOnly><Settings /></BossOnly>} />
+            <Route path="/inward" element={<Inward />} />
+            <Route path="/outward" element={<Outward />} />
+            <Route path="/documents" element={<Documents />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
