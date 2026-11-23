@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api';
 import DueChip from '../components/DueChip';
 import { daysBetween, dateStr, todayStr, fmtDate } from '../utils';
+import RemindersPanel from '../components/RemindersPanel';
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -33,7 +34,7 @@ export default function Dashboard() {
         </Link>
       </div>
 
-      {/* Part 6 adds the reminders panel here */}
+      <RemindersPanel />
 
       <div className="stat-tiles">
         {tiles.map(([label, n, sub, to, tone]) => (

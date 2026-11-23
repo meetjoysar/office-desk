@@ -5,7 +5,8 @@ import Client from '../models/Client.js';
 import Type from '../models/Type.js';
 import User from '../models/User.js';
 import { protect, bossOnly } from '../middleware/auth.js';
-import { HttpError, todayStr } from '../utils.js';
+import { HttpError, todayStr, fmtDay } from '../utils.js';
+import Notification from '../models/Notification.js';
 
 const router = Router();
 router.use(protect);
@@ -74,7 +75,16 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const data = await cleanTask(req.body, req.user);
   const task = await Task.create({ ...data, assignedBy: req.user._id });
-  // Part 6 adds an "assigned" notification here
+  if (!task.assignedTo.equals(req.user._id)) {
+    const client = await Client.findById(task.client).select('name');
+    await Notification.create({
+      user: task.assignedTo,
+      task: task._id,
+      kind: 'ASSIGNED',
+      message: `${req.user.shortName} gave you ${task.workName} for ${client.name}, due ${fmtDay(task.dueDate)}`,
+      dedupeKey: `assigned:${task._id}`,
+    });
+  }
   res.status(201).json(task);
 });
 

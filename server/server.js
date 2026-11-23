@@ -10,6 +10,9 @@ import inwardRoutes from './routes/inwards.js';
 import outwardRoutes from './routes/outwards.js';
 import taskRoutes from './routes/tasks.js';
 import dashboardRoutes from './routes/dashboard.js';
+import cron from 'node-cron';
+import notificationRoutes from './routes/notifications.js';
+import { runReminders } from './jobs/reminders.js';
 
 const app = express();
 app.use(cors());
@@ -25,6 +28,7 @@ app.use('/api/inwards', inwardRoutes);
 app.use('/api/outwards', outwardRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Catches any error thrown in a route
 app.use((err, req, res, next) => {
@@ -45,4 +49,13 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
     app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+    // Every day at 9:00 AM India time
+    cron.schedule(
+        '0 9 * * *',
+        () => {
+            runReminders().then((r) => console.log('Reminders sent', r)).catch(console.error);
+        },
+        { timezone: 'Asia/Kolkata' }
+    );
 });

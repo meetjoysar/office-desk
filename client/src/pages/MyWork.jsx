@@ -16,10 +16,19 @@ export default function MyWork() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('NOT_DONE');
   const [search, setSearch] = useState('');
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     api.get('/tasks', { params: { mine: 1 } }).then((res) => setTasks(res.data));
+    api
+      .get('/notifications')
+      .then((res) => setNotes(res.data.filter((n) => !n.readAt && n.kind !== 'OVERDUE_FOR_BOSS')));
   }, []);
+
+  async function dismiss(n) {
+    await api.patch(`/notifications/${n._id}/read`);
+    setNotes((ns) => ns.filter((x) => x._id !== n._id));
+  }
 
   // Save the new status, then update just that row (no page reload)
   async function changeStatus(task, status) {
@@ -53,7 +62,17 @@ export default function MyWork() {
 
   return (
     <>
-      {/* Part 6 adds the reminder banner here */}
+      {notes.map((n) => (
+        <div key={n._id} className={`banner ${n.kind === 'ASSIGNED' ? 'blue' : ''}`}>
+          <span className="grow">
+            {n.kind === 'ASSIGNED' ? 'New task: ' : 'Reminder: '}
+            {n.message}
+          </span>
+          <button className="btn-small" onClick={() => dismiss(n)}>
+            OK
+          </button>
+        </div>
+      ))}
 
       <div className="actions3">
         <Link to="/inward" className="action-card">

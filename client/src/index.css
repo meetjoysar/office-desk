@@ -196,3 +196,11 @@ a.btn-small { display: inline-flex; align-items: center; color: inherit; text-de
 .chip.static { display: inline-flex; align-items: center; background: var(--soft); }
 .check { display: flex; align-items: center; gap: 10px; font-weight: 400; margin: 8px 0 16px; }
 .check input { width: 22px; height: 22px; }
+
+/* Notifications */
+.bell { position: relative; display: inline-flex; padding: 6px; color: #fff; }
+.badge { position: absolute; top: -4px; right: -6px; padding: 1px 6px; background: var(--red); color: #fff; border-radius: 999px; font-size: 13px; font-weight: 700; }
+.banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; margin-bottom: 12px; background: var(--red-bg); color: var(--red); border: 1px solid #E9A7A2; border-radius: 14px; font-weight: 700; }
+.banner.blue { background: var(--blue-bg); color: #163A77; border-color: var(--blue); }
+.reminders { margin-bottom: 20px; }
+.reminders .chips { margin: 0; }

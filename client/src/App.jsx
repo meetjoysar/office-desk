@@ -12,6 +12,7 @@ import Outward from './pages/Outward';
 import Documents from './pages/Documents';
 import Clients from './pages/Clients';
 import Settings from './pages/Settings';
+import Notifications from './pages/Notifications';
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/inward" element={<Inward />} />
             <Route path="/outward" element={<Outward />} />
             <Route path="/documents" element={<Documents />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="/dashboard" element={<BossOnly><Dashboard /></BossOnly>} />
             <Route path="/tasks" element={<BossOnly><AllTasks /></BossOnly>} />
             <Route path="/tasks/:id/edit" element={<BossOnly><TaskForm /></BossOnly>} />

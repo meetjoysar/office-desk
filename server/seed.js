@@ -10,6 +10,7 @@ import Inward from './models/Inward.js';
 import Outward from './models/Outward.js';
 import Task from './models/Task.js';
 import { todayStr, addDays } from './utils.js';
+import Notification from './models/Notification.js';
 
 await connectDB();
 await User.deleteMany({});
@@ -20,6 +21,7 @@ await Counter.deleteMany({});
 await Inward.deleteMany({});
 await Outward.deleteMany({});
 await Task.deleteMany({});
+await Notification.deleteMany({});
 
 const pinHash = await bcrypt.hash('2468', 10);
 
